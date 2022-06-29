@@ -3,11 +3,10 @@
 // Done: Create variables to store indexes of start and end for character types
 // Done: Create array to store the generated PW
 
-// TODO: Prevent user from declining all character types (maybe use a counter, if counter == 4, error msg and cancel/restart)
-// TODO: Prompt user to select the length of the PW and therefore the generated array
+
+
 // TODO: Prevent user from enetering anything but an integer
-// TODO: Using a loop, randomly select characters from the sliced available chars array
-// TODO: Insert the chars into a new array holding the PW
+
 // TODO: Output the result to the user
 
 // Unable (too sophisticated for what we currently know): [Stretch Idea]: Find a way to use checkboxes on one prompt rather than repeated text boxes
@@ -15,9 +14,9 @@
 
 // Done: Create an array of all potential characters: a-z, A-Z, 0-9, special
 let availableChars = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                "0","1","2","3","4","5","6","7","8","9",
-                "!","\"","#","$","%","&","\'","(",")","*","+","-",".","/",":",";","<","=",">","?","@","[","\\","]","^","_","`","{","|","}","~"];
+                      "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+                      "0","1","2","3","4","5","6","7","8","9",
+                      "!","\"","#","$","%","&","\'","(",")","*","+","-",".","/",":",";","<","=",">","?","@","[","\\","]","^","_","`","{","|","}","~"];
 
 // Variables to mark off boundaries between different character sets in the availableChars array
 let lowerStart = 0;
@@ -28,7 +27,7 @@ let digitStart = 52;
 let digitCount = 10;
 let specialStart = 62;
 let specialCount = 31;
-let charSetsCounter = 4
+let charSetsCounter = 3;
 let welcomeText = "Would you like to include lower case letters? Press OK to include, and Cancel to decline:";
 let upperCaseText = "Would you like to include upper case letters? Press OK to include, and Cancel to decline:";
 let numberText = "Would you like to include numbers? Press OK to include, and Cancel to decline:";
@@ -38,24 +37,22 @@ var generateBtn = document.querySelector("#generate");
 let generatedPw = [];
 var pwLength = 8;
 
-// TODO: Prompt user to choose types of characters
-// TODO: If user declines a character type, slice that type out of the available chars array
+
 var getPWSelections = function() {
 console.log(availableChars);
 console.log(availableChars.length);
 
+// Done: Prompt user to select the length of the PW and therefore the generated array
 pwLength = window.prompt(pwLengthText);
 if (!pwLength){
-  return;}
-if (pwLength < 8 || pwLength > 128){
+  return;}else if (pwLength < 8 || pwLength > 128){
   alert("Please enter a number between 7 and 129");
   return;
 }
-// } else if (pwLength == null){
-//   alert("Please enter a number")
-// }
-console.log(`Desired PW length: ${pwLength}`);
 
+console.log(`Desired PW length: ${pwLength}`);
+// Prompt user to choose types of characters
+// If user declines a character type, slice that type out of the available chars array
 if (!confirm(welcomeText)){
   availableChars.splice(lowerStart,lowerCount);
   charSetsCounter--;
@@ -85,11 +82,16 @@ console.log(`Special: ${specialStart}`)
 
 // TODO: Prevent user from declining all character types (maybe use a counter, if counter == 4, error msg and cancel/restart)
 if (!confirm(specialText)){
+  if(charSetsCounter == 0){
+    alert("You must have at least one type of character for your password.");
+    return;
+  }
   availableChars.splice(specialStart,specialCount);
 console.log(availableChars);
 }
 }
-
+// Done: Using a loop, randomly select characters from the sliced available chars array
+// Done: Insert the chars into a new array holding the PW
 var generatePassword = function(){
   for (i=0; i < pwLength; i++){
   var randIndex = Math.floor(Math.random() * availableChars.length);
