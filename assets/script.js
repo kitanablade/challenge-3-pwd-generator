@@ -46,10 +46,14 @@ console.log(availableChars.length);
 
 pwLength = window.prompt(pwLengthText);
 if (!pwLength){
+  return;}
+if (pwLength < 8 || pwLength > 128){
+  alert("Please enter a number between 7 and 129");
   return;
-} else if (pwLength == null){
-  reEnterLength();
 }
+// } else if (pwLength == null){
+//   alert("Please enter a number")
+// }
 console.log(`Desired PW length: ${pwLength}`);
 
 if (!confirm(welcomeText)){
@@ -91,8 +95,8 @@ var generatePassword = function(){
   var randIndex = Math.floor(Math.random() * availableChars.length);
   generatedPw[i] = availableChars[randIndex];
   console.log(generatedPw[i])}
-  var password = generatedPw.join("");
-  return password;
+  var passwordString = generatedPw.join("");
+  return passwordString;
 };
   
 getPWSelections();
