@@ -36,6 +36,7 @@ let specialText = "Would you like to include special characters? Press OK to inc
 let pwLengthText = "Welcome to the Password Generator. Your password must be at least 8 and no more than 128 characters in length. Please enter the number of characters you desire:"
 var generateBtn = document.querySelector("#generate");
 let generatedPw = [];
+var pwLength = 8;
 
 // TODO: Prompt user to choose types of characters
 // TODO: If user declines a character type, slice that type out of the available chars array
@@ -43,7 +44,7 @@ var getPWSelections = function() {
 console.log(availableChars);
 console.log(availableChars.length);
 
-var pwLength = window.prompt(pwLengthText);
+pwLength = window.prompt(pwLengthText);
 if (!pwLength){
   return;
 } else if (pwLength == null){
@@ -84,20 +85,19 @@ if (!confirm(specialText)){
 console.log(availableChars);
 }
 }
-  
-getPWSelections();
 
-
-generateBtn.addEventListener("click", function(){
+var generatePassword = function(){
   for (i=0; i < pwLength; i++){
   var randIndex = Math.floor(Math.random() * availableChars.length);
   generatedPw[i] = availableChars[randIndex];
-  console.log(generatePw[i])}
-});
-
-function reEnterLength (){
-  alert("Please enter an integer between 7 and 129.")
-}
+  console.log(generatedPw[i])}
+  var password = generatedPw.toString("");
+  return password;
+};
+  
+getPWSelections();
+generatePassword();
+console.log(password);
 
 
 // Assignment Code
