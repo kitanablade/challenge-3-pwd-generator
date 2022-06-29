@@ -91,13 +91,13 @@ var generatePassword = function(){
   var randIndex = Math.floor(Math.random() * availableChars.length);
   generatedPw[i] = availableChars[randIndex];
   console.log(generatedPw[i])}
-  var password = generatedPw.toString("");
+  var password = generatedPw.join("");
   return password;
 };
   
 getPWSelections();
 generatePassword();
-console.log(password);
+console.log(`Here is the generated password: ${password}`);
 
 
 // Assignment Code
