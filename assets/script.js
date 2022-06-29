@@ -39,18 +39,16 @@ var pwLength = 8;
 
 
 var getPWSelections = function() {
-console.log(availableChars);
-console.log(availableChars.length);
-
 // Done: Prompt user to select the length of the PW and therefore the generated array
 pwLength = window.prompt(pwLengthText);
 if (!pwLength){
   return;}else if (pwLength < 8 || pwLength > 128){
   alert("Please enter a number between 7 and 129");
+  getPWSelections();
   return;
 }
 
-console.log(`Desired PW length: ${pwLength}`);
+
 // Prompt user to choose types of characters
 // If user declines a character type, slice that type out of the available chars array
 if (!confirm(welcomeText)){
@@ -86,7 +84,7 @@ if (!confirm(specialText)){
     alert("You must have at least one type of character for your password.");
     return;
   }
-  availableChars.splice(specialStart,specialCount);
+availableChars.splice(specialStart,specialCount);
 console.log(availableChars);
 }
 }
@@ -101,8 +99,7 @@ var generatePassword = function(){
   return passwordString;
 };
   
-getPWSelections();
-generatePassword();
+
 console.log(`Here is the generated password: ${password}`);
 
 
@@ -111,6 +108,8 @@ console.log(`Here is the generated password: ${password}`);
 
 // Write password to the #password input
 function writePassword() {
+  getPWSelections();
+  // generatePassword();
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
